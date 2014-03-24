@@ -1,0 +1,30 @@
+Tracking url tests
+==================
+
+    >>> portal = layer['portal']
+    >>> browser = layer['browser']
+
+    >>> tracker = portal.restrictedTraverse('@@track_download')
+    >>> url_opener = tracker.get_opener()
+    
+Test forwarded host
+-------------------
+
+    >>> tracker.get_host()
+    'eea'
+
+
+Test host
+---------
+
+    >>> del portal.REQUEST.environ['HTTP_X_FORWARDED_HOST']
+    >>> tracker.get_host()
+    'nohost'
+
+
+Test no host
+------------
+
+    >>> del portal.REQUEST.environ['HTTP_HOST']
+    >>> tracker.get_host()
+    '-'

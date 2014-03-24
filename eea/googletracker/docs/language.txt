@@ -1,0 +1,23 @@
+Tracking url tests
+==================
+
+    >>> portal = layer['portal']
+    >>> browser = layer['browser']
+
+    >>> tracker = portal.restrictedTraverse('@@track_download')
+    >>> url_opener = tracker.get_opener()
+    >>> file_id = portal.invokeFactory('File', 'my-file', title='My File')
+    >>> file = portal[file_id]
+    >>> portal.REQUEST['ACTUAL_URL'] = file.absolute_url()
+    >>> portal.REQUEST['SERVER_URL'] = portal.aq_parent.absolute_url()
+    
+    
+Test no language
+----------------
+    >>> del portal.REQUEST.environ['HTTP_ACCEPT_LANGUAGE']
+    >>> tracker = portal.restrictedTraverse('@@track_download')
+    >>> 'utmul=(not set)' in tracker.trackPageview(file, url_opener)
+    True
+    >>> 'utmul=(not set)' in tracker.trackEvent(file, url_opener)
+    True
+    

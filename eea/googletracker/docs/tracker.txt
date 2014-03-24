@@ -1,0 +1,39 @@
+Tracking url tests
+==================
+
+    >>> portal = layer['portal']
+    >>> browser = layer['browser']
+
+    >>> tracker = portal.restrictedTraverse('@@track_download')
+    >>> url_opener = tracker.get_opener()
+    >>> file_id = portal.invokeFactory('File', 'my-file', title='My File')
+    >>> image_id = portal.invokeFactory('Image', 'my-image', title='My Image')
+    >>> file = portal[file_id]
+    >>> image = portal[image_id]
+    >>> portal.REQUEST['ACTUAL_URL'] = file.absolute_url()
+    >>> portal.REQUEST['SERVER_URL'] = portal.aq_parent.absolute_url()
+
+
+Test User-Agent
+---------------
+    >>> url_opener.addheaders[0][1]
+    'Mozilla/5.0...'
+
+Patch callers
+-------------
+    >>> def test_track(obj, opener):
+    ...    print obj.getId()
+    >>> tracker.trackPageview = test_track
+    >>> tracker.trackEvent = test_track
+
+Test main call with File
+------------------------
+    >>> tracker(file, file.getPrimaryField())
+    my-file
+    my-file
+    
+Test main call with Image
+-------------------------
+
+    >>> tracker(image, image.getPrimaryField())
+    my-image

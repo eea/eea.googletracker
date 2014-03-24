@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+
+ <object name="eea_googletracker_templates"
+    meta_type="Filesystem Directory View"
+    directory="eea.googletracker:skins/eea_googletracker_templates"/>
+
+ <skin-path name="*">
+  <layer name="eea_googletracker_templates"
+     insert-after="custom"/>
+ </skin-path>
+
+</object>

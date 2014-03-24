@@ -1,0 +1,25 @@
+Tracking url tests
+==================
+
+    >>> portal = layer['portal']
+    >>> browser = layer['browser']
+
+    >>> tracker = portal.restrictedTraverse('@@track_download')
+    >>> url_opener = tracker.get_opener()
+    >>> file_id = portal.invokeFactory('File', 'my-file', title='My File')
+    >>> file = portal[file_id]
+    >>> portal.REQUEST['ACTUAL_URL'] = file.absolute_url()
+    >>> portal.REQUEST['SERVER_URL'] = portal.aq_parent.absolute_url()
+
+    
+Test IPv6
+---------
+
+    >>> portal.REQUEST.environ['HTTP_X_FORWARDED_FOR'] = '2001:0db8:85a3:0000:0000:8a2e:0370:7334'
+    >>> pagetracker_url = tracker.trackPageview(file, url_opener)
+    >>> eventtracker_url = tracker.trackEvent(file, url_opener)
+    >>> expected_ipv6 = '2001:0db8:85a3:0000:0000:8a2e:0370:0'
+    >>> expected_ipv6 in pagetracker_url
+    True
+    >>> expected_ipv6 in eventtracker_url
+    True

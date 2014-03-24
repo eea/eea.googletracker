@@ -1,0 +1,18 @@
+Changelog
+=========
+
+1.0-dev - (unreleased)
+----------------------
+- Fix: trying HTTP_X_FORWARDED_HOST before HTTP_HOST [david, (Eau de Web)]
+- Fix: parsing the HTTP_ACCEPT_LANGUAGE header ourselves [david, (Eau de Web)]
+- Feature: no longer tracking "Images" as Pageviews, just as Events
+  [david, (Eau de Web)]
+- Feature: using the portal_type as event category [david, (Eau de Web)]
+- Feature: using the visitors User-Agent for GA requests [david, (Eau de Web)]
+- Feature: sending browser language to GA [david, (Eau de Web)]
+- Feature: handling IPv6 [david, (Eau de Web)]
+- Feature: sending the anonymized user ip to GA [david, (Eau de Web)] 
+- Fix: adding tests [david, (Eau de Web)]
+- Feature: adding file download Event tracking [david, (Eau de Web)]
+- Initial release
+

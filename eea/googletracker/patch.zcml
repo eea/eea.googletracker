@@ -1,0 +1,29 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="collective.monkeypatcher">
+
+    <include package="collective.monkeypatcher" />
+
+    <monkey:patch
+        description="Track all file downloads in GA"
+        class="Products.ATContentTypes.content.base.ATCTFileContent"
+        original="index_html"
+        replacement=".patch.ATCTFileContent_index_html"
+        />
+
+    <monkey:patch
+        description="Track all file downloads in GA"
+        class="Products.ATContentTypes.content.file.ATFile"
+        original="index_html"
+        replacement=".patch.ATFile_index_html"
+        />
+
+    <monkey:patch
+        description="Track all file downloads in GA"
+        class="plone.app.blob.content.ATBlob"
+        original="index_html"
+        replacement=".patch.ATBlob_index_html"
+        />
+
+</configure>

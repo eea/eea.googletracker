@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="eea">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Track file downloads with Google Analytics"
+      directory="profiles/default"
+      description="Server-side calls to Google Analytics when downloading files"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

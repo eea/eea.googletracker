@@ -1,0 +1,34 @@
+Tracking url tests
+==================
+
+    >>> portal = layer['portal']
+    >>> browser = layer['browser']
+
+    >>> tracker = portal.restrictedTraverse('@@track_download')
+    >>> url_opener = tracker.get_opener()
+    >>> file_id = portal.invokeFactory('File', 'my-file', title='My File')
+    >>> image_id = portal.invokeFactory('Image', 'my-image', title='My Image')
+    >>> file = portal[file_id]
+    >>> image = portal[image_id]
+    >>> portal.REQUEST['SERVER_URL'] = portal.aq_parent.absolute_url()
+    >>> portal.REQUEST['ACTUAL_URL'] = file.absolute_url()
+
+
+Test File Event url
+-------------------
+    >>> eventtracker_url = tracker.trackEvent(file, url_opener)
+    >>> "utme=5(File*Download*/plone/my-file)" in eventtracker_url
+    True
+    >>> eventtracker_url
+    '...utmhn=eea...utmp=/plone/my-file...MO-00000000-0...utmip=127.0.0.0...utmt=event...utme=5(File*Download*/plone/my-file)...'
+
+    
+Test Image Event url
+--------------------
+    >>> portal.REQUEST['ACTUAL_URL'] = image.absolute_url()    
+    >>> image_eventtracker_url = tracker.trackEvent(image, url_opener)
+    >>> "utme=5(Image*Download*/plone/my-image)" in image_eventtracker_url
+    True
+    >>> image_eventtracker_url
+    '...utmhn=eea...utmp=/plone/my-image...MO-00000000-0...utmip=127.0.0.0...utmt=event...utme=5(Image*Download*/plone/my-image)...'
+    
